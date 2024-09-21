@@ -24,7 +24,7 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        return inertia("Maintenance/Create");
+        return inertia('Maintenance/Create');
     }
     
     /**
