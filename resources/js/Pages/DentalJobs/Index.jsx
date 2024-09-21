@@ -1,9 +1,10 @@
+import DangerButton from "@/Components/DangerButton";
 import Pagination from "@/Components/Pagination";
+import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Index({ auth, dentalJobs }) {
-    console.dir(dentalJobs);
     return (
         <AuthenticatedLayout
             header={
@@ -128,19 +129,19 @@ export default function Index({ auth, dentalJobs }) {
                                             <td className="px-6 py-4">
                                                 {dentalJob.deadline}
                                             </td>
-                                            <td className="px-6 py-4 text-right">
-                                                <a
+                                            <td className="px-5 py-3 text-right">
+                                                <PrimaryButton
                                                     href="#"
-                                                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline px-4"
                                                 >
                                                     Módosítás
-                                                </a>
-                                                <a
+                                                </PrimaryButton>
+                                                </td>
+                                                <td className="px-5 py-3 text-right">
+                                                <DangerButton
                                                     href="#"
-                                                    className="font-medium text-red-600 red:text-blue-500 hover:underline px-4"
                                                 >
                                                     Törlés
-                                                </a>
+                                                </DangerButton>
                                             </td>
                                         </tr>
                                     ))}

@@ -1,11 +1,14 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
 
 use App\Models\DentalJobs;
 use App\Http\Requests\StoreDentalJobsRequest;
 use App\Http\Requests\UpdateDentalJobsRequest;
 use App\Http\Resources\DentalJobs as ResourcesDentalJobs;
+use Inertia\Inertia;
 
 class DentalJobsController extends Controller
 {
@@ -22,9 +25,9 @@ class DentalJobsController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function Create()
     {
-        //
+        return inertia("DentalJobs/Create");
     }
 
     /**

@@ -18,6 +18,8 @@ class DoctorsFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'phone' => $this->faker->phoneNumber, // Random phone number
+            'comment' => $this->faker->sentence,   // Random comment
 
         ];
     }

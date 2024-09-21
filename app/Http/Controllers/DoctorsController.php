@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctors;
 use App\Http\Requests\StoreDoctorsRequest;
 use App\Http\Requests\UpdateDoctorsRequest;
+use App\Http\Resources\Doctors as ResourcesDoctors;
 
 class DoctorsController extends Controller
 {
@@ -13,7 +14,10 @@ class DoctorsController extends Controller
      */
     public function index()
     {
-        //
+        {
+            $doctors = Doctors::with('doctor')->paginate(10);
+            return inertia("Doctors/Index", ['dentalJobs' => ResourcesDoctors::collection($doctors)]);
+        }
     }
 
     /**
