@@ -15,8 +15,9 @@ class DoctorsController extends Controller
     public function index()
     {
         {
-            $doctors = Doctors::with('doctor')->paginate(10);
-            return inertia("Doctors/Index", ['dentalJobs' => ResourcesDoctors::collection($doctors)]);
+            $doctors = Doctors::with('dentalJobs')->paginate(10); // 'dentalJobs' a Doctor modelből
+            return inertia("Doctors/Index", ['doctors' => ResourcesDoctors::collection($doctors)]);
+            
         }
     }
 
