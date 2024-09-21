@@ -32,6 +32,9 @@ export default function Authenticated({ header, children }) {
                                 <NavLink href={route('Doctors.index')} active={route().current('Doctors.index')}>
                                     Orvosok
                                 </NavLink>
+                                <NavLink href={route('Maintenance.index')} active={route().current('Maintenance.index')}>
+                                    Karbantartási napló
+                                </NavLink>
                             </div>
                         </div>
 

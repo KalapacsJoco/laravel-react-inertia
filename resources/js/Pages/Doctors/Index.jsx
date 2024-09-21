@@ -5,7 +5,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Index({ auth, doctors }) {
-    console.dir(doctors);
     return (
         <AuthenticatedLayout
             header={
@@ -68,7 +67,7 @@ export default function Index({ auth, doctors }) {
                                             className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                                             key={doctor.id}
                                         >
-                                            <td className="px-6 py-4">
+                                            <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                                 {doctor.name}
                                             </td>
                                             <td className="px-6 py-4">
@@ -76,9 +75,6 @@ export default function Index({ auth, doctors }) {
                                             </td>
                                             <td className="px-6 py-4">
                                                 {doctor.phone}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {doctor.created_at}
                                             </td>
                                             <td className="px-6 py-4">
                                                 {doctor.updated_at}
@@ -98,6 +94,8 @@ export default function Index({ auth, doctors }) {
                                     ))}
                                 </tbody>
                             </table>
+                            <Pagination links={doctors.meta.links} />
+
                         </div>
                     </div>
                 </div>

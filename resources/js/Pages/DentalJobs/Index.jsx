@@ -4,6 +4,21 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
+const getDateClass = (deadline) => {
+    const deadlineDate = new Date(deadline);
+    const today = new Date();
+    const timeDiff = deadlineDate - today; // időeltérés milliszekundumban
+    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // napok számának kiszámítása
+
+    if (dayDiff > 3) {
+        return "text-green-500"; // Zöld
+    } else if (dayDiff > 1) {
+        return "text-yellow-500"; // Sárga
+    } else {
+        return "text-red-500"; // Piros
+    } 
+};
+
 export default function Index({ auth, dentalJobs }) {
     return (
         <AuthenticatedLayout
@@ -126,20 +141,20 @@ export default function Index({ auth, dentalJobs }) {
                                             <td className="px-6 py-4">
                                                 {dentalJob.price}
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td
+                                                className={`px-6 py-4 ${getDateClass(
+                                                    dentalJob.deadline
+                                                )}`}
+                                            >
                                                 {dentalJob.deadline}
                                             </td>
                                             <td className="px-5 py-3 text-right">
-                                                <PrimaryButton
-                                                    href="#"
-                                                >
+                                                <PrimaryButton href="#">
                                                     Módosítás
                                                 </PrimaryButton>
-                                                </td>
-                                                <td className="px-5 py-3 text-right">
-                                                <DangerButton
-                                                    href="#"
-                                                >
+                                            </td>
+                                            <td className="px-5 py-3 text-right">
+                                                <DangerButton href="#">
                                                     Törlés
                                                 </DangerButton>
                                             </td>

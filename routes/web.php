@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\DentalJobsController;
 use App\Http\Controllers\ProfileController;
@@ -18,7 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
 
     Route::resource('DentalJobs', DentalJobsController::class);
     Route::resource('Doctors', DoctorsController::class);
-    Route::resource('User', UserController::class);
+    Route::resource('Maintenance', MaintenanceController::class);
 
 });
 
