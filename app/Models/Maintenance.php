@@ -12,6 +12,7 @@ class Maintenance extends Model
     protected $fillable = [
         'name',
         'frequency',
+        'machine',
 
     ];
 }

@@ -17,7 +17,6 @@ class MaintenanceController extends Controller
     {
         $maintenance = Maintenance::paginate(10);
         return inertia("Maintenance/Index", ['maintenance' => MaintenanceResource::collection($maintenance)]);
-
     }
 
     /**
@@ -27,16 +26,18 @@ class MaintenanceController extends Controller
     {
         return inertia('Maintenance/Create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreMaintenanceRequest $request)
     {
-        $data =$request->validated();
-        dd($data);
+        $data = $request->validated();
+        // Új rekord létrehozása az adatbázisban
+        Maintenance::create($data);
 
-
+        // Átirányítás vagy válasz visszaadása
+        return redirect()->route('Maintenance.index')->with('success', 'A feledat sikeresen feltöltve!');
     }
 
     /**

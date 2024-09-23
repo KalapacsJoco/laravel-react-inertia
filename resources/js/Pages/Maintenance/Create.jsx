@@ -9,7 +9,7 @@ export default function Index({ auth, maintenance }) {
         taskName: '',
         machine: '',
         frequency: '',
-        _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        // _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
     });
 
     const submit = (e) => {
@@ -32,7 +32,7 @@ export default function Index({ auth, maintenance }) {
         >
             <Head title="Karbantartási napló"></Head>
             <form className="max-w-md mx-auto" onSubmit={submit}>
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                 {/* <input type="hidden" name="_token" value="{{ csrf_token() }}"/> */}
                 <div className="relative z-0 w-full mb-5 group">
                     <input
                         type="text"
@@ -71,6 +71,7 @@ export default function Index({ auth, maintenance }) {
                         Gép/eszköz
                     </label>
                     {errors.machine && <div className="text-red-600">{errors.machine}</div>}
+                    
                 </div>
 
                 <div className="relative z-0 w-full mb-5 group">
