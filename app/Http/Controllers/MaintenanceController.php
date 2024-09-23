@@ -6,6 +6,7 @@ use App\Models\Maintenance;
 use App\Http\Requests\StoreMaintenanceRequest;
 use App\Http\Requests\UpdateMaintenanceRequest;
 use App\Http\Resources\MaintenanceResource;
+use Illuminate\Support\Facades\Auth;
 
 class MaintenanceController extends Controller
 {
@@ -32,7 +33,10 @@ class MaintenanceController extends Controller
      */
     public function store(StoreMaintenanceRequest $request)
     {
-        //
+        $data =$request->validated();
+        dd($data);
+
+
     }
 
     /**

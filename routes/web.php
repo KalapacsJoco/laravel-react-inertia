@@ -12,15 +12,21 @@ Route::redirect('/', '/dashboard');
 
 
 
-Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', fn()=> Inertia::render('Dashboard'))
-            ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', fn () => Inertia::render('Dashboard'))
+        ->name('dashboard');
 
     Route::resource('DentalJobs', DentalJobsController::class);
     Route::resource('Doctors', DoctorsController::class);
-    Route::resource('Maintenance', MaintenanceController::class);
-
 });
+
+// Maintenance route-ok
+Route::get('/Maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
+Route::post('/Maintenance/store', [MaintenanceController::class, 'store'])->name('maintenance.store');
+Route::get('/Maintenance/{id}', [MaintenanceController::class, 'show'])->name('maintenance.show');
+Route::put('/Maintenance/{id}', [MaintenanceController::class, 'update'])->name('maintenance.update');
+Route::delete('/Maintenance/{id}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
+
 
 
 Route::middleware('auth')->group(function () {
