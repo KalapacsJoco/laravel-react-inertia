@@ -1,14 +1,18 @@
+import { useState } from "react"; // Importing useState hook
 import DangerButton from "@/Components/DangerButton";
 import Pagination from "@/Components/Pagination";
 import PrimaryButton from "@/Components/PrimaryButton";
+import SearchButton from "@/Components/SearchButton";
+import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import SelectInput from "@/Components/SelectInput";
 
 const getDateClass = (deadline) => {
     const deadlineDate = new Date(deadline);
     const today = new Date();
-    const timeDiff = deadlineDate - today; // időeltérés milliszekundumban
-    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // napok számának kiszámítása
+    const timeDiff = deadlineDate - today;
+    const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
     if (dayDiff > 3) {
         return "text-green-500"; // Zöld
@@ -16,10 +20,27 @@ const getDateClass = (deadline) => {
         return "text-yellow-500"; // Sárga
     } else {
         return "text-red-500"; // Piros
-    } 
+    }
 };
 
-export default function Index({ auth, dentalJobs }) {
+export default function Index({ auth, dentalJobs, qureyparams = null }) {
+
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+    const toggleSearchField = () => {
+        setIsSearchVisible(!isSearchVisible);
+    };
+    queryParams = queryparams || {}
+    const searchFieldChanged = (id, value) => {
+        if (value) {
+            queryparams[id] = value
+        } else{
+            delete queryParams[id]
+        }
+    }
+
+
+
     return (
         <AuthenticatedLayout
             header={
@@ -29,7 +50,6 @@ export default function Index({ auth, dentalJobs }) {
             }
         >
             <Head title="Dental Projects" />
-
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -80,20 +100,7 @@ export default function Index({ auth, dentalJobs }) {
                                             </div>
                                         </th>
                                         <th scope="col" className="px-6 py-3">
-                                            <div className="flex items-center">
-                                                Anyag
-                                                <a href="#">
-                                                    <svg
-                                                        className="w-3 h-3 ms-1.5"
-                                                        aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        fill="currentColor"
-                                                        viewBox="0 0 24 24"
-                                                    >
-                                                        <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
-                                                    </svg>
-                                                </a>
-                                            </div>
+                                            Anyag
                                         </th>
                                         <th scope="col" className="px-6 py-3">
                                             Tagszám
@@ -104,6 +111,12 @@ export default function Index({ auth, dentalJobs }) {
                                         <th scope="col" className="px-6 py-3">
                                             Határidő
                                         </th>
+                                        <th className="px-6 py-3">
+                                            {/* Step 3: Attach onClick to SearchButton */}
+                                            <div onClick={toggleSearchField}>
+                                                <SearchButton />
+                                            </div>
+                                        </th>
                                         <th scope="col" className="px-6 py-3">
                                             <span className="sr-only">
                                                 Edit
@@ -111,6 +124,39 @@ export default function Index({ auth, dentalJobs }) {
                                         </th>
                                     </tr>
                                 </thead>
+
+                                {/* Conditionally render searchInputField based on state */}
+                                <thead
+                                         className={`text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ${
+                                            isSearchVisible ? "" : "hidden"
+                                        }`}
+                                >
+                                    <tr>
+                                        <th scope="col">
+                                            <TextInput 
+                                                className="w-full"
+                                                placeholder="Sorszám"
+                                                onBlur={e => searchFieldChanged('id')}  />
+                                        </th>
+                                        <th scope="col">
+                                            <TextInput className="w-full" />
+                                        </th>
+                                        <th scope="col">
+                                            <TextInput className="w-full" />
+                                        </th>
+                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <SelectInput className="w-full" />
+                                        </th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col">
+                                            <span className="sr-only"></span>
+                                        </th>
+                                    </tr>
+                                </thead>
+
                                 <tbody>
                                     {dentalJobs.data.map((dentalJob) => (
                                         <tr
@@ -137,7 +183,6 @@ export default function Index({ auth, dentalJobs }) {
                                             <td className="px-6 py-4">
                                                 {dentalJob.qty}
                                             </td>
-
                                             <td className="px-6 py-4">
                                                 {dentalJob.price}
                                             </td>
