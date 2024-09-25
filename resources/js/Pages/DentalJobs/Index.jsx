@@ -144,14 +144,23 @@ export default function Index({ auth, dentalJobs, qureyparams = null }) {
                                                 className="w-full"
                                                 placeholder="Sorszám"
                                                 value={searchId}
-                                                onChange = {(e) => setSearchId(e.target.value)}
+                                                onChange={(e) =>
+                                                    setSearchId(e.target.value)
+                                                }
                                             />
                                         </th>
                                         <th scope="col">
                                             <TextInput className="w-full" />
                                         </th>
                                         <th scope="col">
-                                            <TextInput className="w-full" />
+                                            <TextInput
+                                                className="w-full"
+                                                placeholder="Páciens neve"
+                                                value={searchPatient}
+                                                onChange={(e) =>
+                                                    setPatient(e.target.value)
+                                                }
+                                            />
                                         </th>
                                         <th scope="col"></th>
                                         <th scope="col">
