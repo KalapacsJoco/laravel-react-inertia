@@ -24,22 +24,29 @@ const getDateClass = (deadline) => {
 };
 
 export default function Index({ auth, dentalJobs, qureyparams = null }) {
-
     const [isSearchVisible, setIsSearchVisible] = useState(false);
 
     const toggleSearchField = () => {
         setIsSearchVisible(!isSearchVisible);
     };
-    queryParams = queryparams || {}
-    const searchFieldChanged = (id, value) => {
-        if (value) {
-            queryparams[id] = value
-        } else{
-            delete queryParams[id]
-        }
-    }
 
+    const [searchId, setSearchId] = useState("");
+    const [searchDoctorName, setDoctorName] = useState("");
+    const [searchPatient, setPatient] = useState("");
+    const [searchMaterial, setMaterial] = useState("");
 
+    const filteredData = dentalJobs.data.filter((item) => {
+        return (
+            item.id.toString().toLowerCase().includes(searchId.toLowerCase()) &&
+            // item.doctor.name
+            //     .toLowerCase()
+            //     .includes(searchDoctorName.toLowerCase()) &&
+            item.PatientName.toLowerCase().includes(
+                searchPatient.toLowerCase()
+            ) &&
+            item.material.toLowerCase().includes(searchMaterial.toLowerCase())
+        );
+    });
 
     return (
         <AuthenticatedLayout
@@ -127,16 +134,18 @@ export default function Index({ auth, dentalJobs, qureyparams = null }) {
 
                                 {/* Conditionally render searchInputField based on state */}
                                 <thead
-                                         className={`text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ${
-                                            isSearchVisible ? "" : "hidden"
-                                        }`}
+                                    className={`text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ${
+                                        isSearchVisible ? "" : "hidden"
+                                    }`}
                                 >
                                     <tr>
                                         <th scope="col">
-                                            <TextInput 
+                                            <TextInput
                                                 className="w-full"
                                                 placeholder="Sorszám"
-                                                onBlur={e => searchFieldChanged('id')}  />
+                                                value={searchId}
+                                                onChange = {(e) => setSearchId(e.target.value)}
+                                            />
                                         </th>
                                         <th scope="col">
                                             <TextInput className="w-full" />
@@ -158,7 +167,7 @@ export default function Index({ auth, dentalJobs, qureyparams = null }) {
                                 </thead>
 
                                 <tbody>
-                                    {dentalJobs.data.map((dentalJob) => (
+                                    {filteredData.map((dentalJob) => (
                                         <tr
                                             className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                                             key={dentalJob.id}
